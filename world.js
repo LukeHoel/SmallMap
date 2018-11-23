@@ -1,4 +1,11 @@
-var world = [];//pixels
+var worldObjects = [];//pixels
+
+var worldSections = 1000000;
+
+var viewPort = {
+    start: { x: 0, y: 0 },
+    end: { x: worldSections, y: worldSections }
+}
 
 var renderLevels = ["continents"];
 
@@ -9,8 +16,19 @@ function drawWorld() {
         if (isFunction(window[renderLevels[i]])){
             window[renderLevels[i]]();//run the method
         } else {
-            console.log(renderLevels[i]+" is not a valid function, skipping");
+            console.log(renderLevels[i]+" is not a valid render layer, skipping");
         }
     }
 
+}
+
+function getWorldPosition(point) {
+
+    var unitX = windowWidth / worldSections;
+    var unitY = windowHeight / worldSections;
+
+    return [
+        point[0] * unitX,
+        point[1] * unitY
+    ];
 }
