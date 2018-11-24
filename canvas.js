@@ -12,7 +12,13 @@ function init() {
     context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     //run initial world draw
-    drawWorld();
+    initWorld();
+
+    drawSectionsWithinBounds(-1,-1,worldRegions,worldRegions);
+}
+
+function clearCanvas() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function fillPolygon(points, color) {

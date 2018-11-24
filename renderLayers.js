@@ -1,4 +1,7 @@
-var shouldRandomizeSeed = false;
+var shouldRandomizeSeed = true;
+
+//good seeds list
+var niceSeeds = [97332];
 
 var masterSeed = shouldRandomizeSeed ? Math.floor((Math.random() * 105027)) : 12345678; //just choose the same one for dev
 var worldSections = window.worldSections;
@@ -10,6 +13,8 @@ function continents() {
     var rand = new Random(masterSeed);
 
     var amount = Math.floor(rand.nextFloat() * 10);
+    context.fillStyle = "white";
+    context.fillRect(0, 0, windowWidth, windowHeight);
 
     for (var j = 0; j < amount+1; j++) {
 
@@ -34,6 +39,25 @@ function continents() {
             points[i][1] += offsetY + (rand.nextFloat() * deviation) - deviation/2;
         }
 
-        fillPolygon(points, "green");
+        fillPolygon(points, "black");
+        worldPolygonArray.push(points);//save for later if we need it
     }
+    var regionUnit = getRegionUnit()
+    worldSectionsArray = scanBoundsToArray(0, 0, windowWidth, windowHeight, Math.floor(regionUnit[0]));//save sections to make it easy to draw later
+    //clearCanvas();
+}
+
+function test() {
+
+
+    var cutoff = .5;
+
+    for (var i = 0; i < 100; i++) {
+        var rand = new Random((masterSeed * (i*12324)));
+        var num = rand.nextFloat();
+        if (num > cutoff) {
+            fillPolygon([[i * 10000, 10000], [(i * 10000) + 10000, 10000], [[(i * 10000) + 10000, 20000]], [i * 10000, 20000]], "blue");
+        }
+    }
+
 }
