@@ -1,7 +1,6 @@
 var worldSections = 1000000;
-var worldRegions = 200;
+var worldRegions = 100;
 
-var worldPolygonArray = [];
 var worldSectionsArray;
 
 var viewPort = {
@@ -75,6 +74,9 @@ function scanBoundsToArray(x, y, w, h, divisionWidth, divisionHeight) {
 }
 
 function drawSectionsWithinBounds(x, y, w, h) {
+    w *= 1.3;
+    x--;
+    y--;
     for (var i = 0; i < worldSectionsArray.length; i++) {
         for (var k = 0; k < worldSectionsArray[i].length; k++) {
             if (worldSectionsArray[i][k] == 1) {

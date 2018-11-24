@@ -4,6 +4,7 @@ var shouldRandomizeSeed = true;
 var niceSeeds = [97332];
 
 var masterSeed = shouldRandomizeSeed ? Math.floor((Math.random() * 105027)) : 12345678; //just choose the same one for dev
+
 var worldSections = window.worldSections;
 
 console.log(masterSeed);
@@ -39,12 +40,11 @@ function continents() {
             points[i][1] += offsetY + (rand.nextFloat() * deviation) - deviation/2;
         }
 
-        fillPolygon(points, "black");
-        worldPolygonArray.push(points);//save for later if we need it
+        fillPolygon(points, "black");//we don't want this to show up later, but we use it to create the grid after
     }
     var regionUnit = getRegionUnit()
     worldSectionsArray = scanBoundsToArray(0, 0, windowWidth, windowHeight, Math.floor(regionUnit[0]));//save sections to make it easy to draw later
-    //clearCanvas();
+    clearCanvas();
 }
 
 function test() {
