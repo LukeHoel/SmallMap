@@ -13,7 +13,7 @@ function continents() {
 
     var rand = new Random(masterSeed);
 
-    var amount = Math.floor(rand.nextFloat() * 10);
+    var amount = Math.floor(rand.nextFloat() * 7)+3;
     context.fillStyle = "white";
     context.fillRect(0, 0, windowWidth, windowHeight);
 

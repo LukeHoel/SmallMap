@@ -73,6 +73,35 @@ function scanBoundsToArray(x, y, w, h, divisionWidth, divisionHeight) {
     return ret;
 }
 
+function drawSection(x, y) {
+    var regionUnit = getRegionUnit();
+
+    var rand = new Random(masterSeed);
+
+    var divs = 50+(rand.nextFloat()*50);
+
+    var h1 = (x * y)%divs;
+    var h2 = (y * x)%divs;
+    var height1 = (h1 + h2) / 2;
+
+    var rand = new Random(masterSeed + x * y);
+    var divs = rand.nextFloat()*10;
+
+    h1 = (x+rand.nextFloat()*divs) % (worldRegionsArray.length / divs);
+    h2 = (y+rand.nextFloat()*divs) % (worldRegionsArray.length / divs);
+    var height2 = (h1 + h2) / 2;//combine into one wavy grid
+
+    var divs2 = 70 + (rand.nextFloat() * 50);
+    h1 = rand.nextFloat() * x % divs2;
+    h2 = rand.nextFloat() * y % divs2;
+    var height3 = (h1 + h2) / 2;
+
+    var height = (height1 + height2 + height3) / 3;//average terrain height
+
+    context.fillStyle = "rgba(" + height + "," + height + "," + height + ",255)";
+    context.fillRect(regionUnit[0] * x, regionUnit[1] * y, regionUnit[0], regionUnit[1]);
+}
+
 function drawSectionsWithinBounds(x, y, w, h) {
 
     w *= worldRegionsArray.length / worldRegions;
@@ -81,9 +110,7 @@ function drawSectionsWithinBounds(x, y, w, h) {
     for (var i = x; i < worldRegionsArray.length && i < x + w; i++) {
         for (var k = y; k < worldRegionsArray[i].length && k < y + h; k++) {
             if (worldRegionsArray[i][k] == 1) {
-                var regionUnit = getRegionUnit();
-                context.fillStyle = "green";
-                context.fillRect(regionUnit[0] * k, regionUnit[1] * i, regionUnit[0], regionUnit[1]);
+                drawSection(k, i);//swap x and y for drawing
             }
         }
     }
