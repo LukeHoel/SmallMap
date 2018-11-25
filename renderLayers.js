@@ -43,7 +43,7 @@ function continents() {
         fillPolygon(points, "black");//we don't want this to show up later, but we use it to create the grid after
     }
     var regionUnit = getRegionUnit()
-    worldSectionsArray = scanBoundsToArray(0, 0, windowWidth, windowHeight, Math.floor(regionUnit[0]));//save sections to make it easy to draw later
+    worldRegionsArray = scanBoundsToArray(0, 0, windowWidth, windowHeight, regionUnit[0], regionUnit[1]);//save sections to make it easy to draw later
     clearCanvas();
 }
 

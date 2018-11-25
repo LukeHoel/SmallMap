@@ -1,7 +1,7 @@
 var worldSections = 1000000;
-var worldRegions = 100;
+var worldRegions = 200;
 
-var worldSectionsArray;
+var worldRegionsArray;
 
 var viewPort = {
     start: { x: 0, y: 0 },
@@ -57,7 +57,7 @@ function getWorldPosition(point) {
 function scanBoundsToArray(x, y, w, h, divisionWidth, divisionHeight) {
     var ret = [];
 
-    for (var j = 0; j < w; j += divisionWidth) {
+    for (var j = 0; j < h; j += divisionHeight) {
         var imageData = context.getImageData(x, j, w, h);
         var arr = [];
         for (var i = 0; i < w; i += divisionWidth) {
@@ -74,19 +74,16 @@ function scanBoundsToArray(x, y, w, h, divisionWidth, divisionHeight) {
 }
 
 function drawSectionsWithinBounds(x, y, w, h) {
-    w *= 1.3;
-    x--;
-    y--;
-    for (var i = 0; i < worldSectionsArray.length; i++) {
-        for (var k = 0; k < worldSectionsArray[i].length; k++) {
-            if (worldSectionsArray[i][k] == 1) {
-                if (i > y && i < y + h) {//is within x bounds
-                    if (k > x && k < x + w) {
-                        var regionUnit = getRegionUnit();
-                        context.fillStyle = "green";
-                        context.fillRect(regionUnit[0] * k, regionUnit[0] * i, regionUnit[0], regionUnit[0]);
-                    }
-                }
+
+    w *= worldRegionsArray.length / worldRegions;
+    h *= worldRegionsArray.length / worldRegions;
+
+    for (var i = x; i < worldRegionsArray.length && i < x + w; i++) {
+        for (var k = y; k < worldRegionsArray[i].length && k < y + h; k++) {
+            if (worldRegionsArray[i][k] == 1) {
+                var regionUnit = getRegionUnit();
+                context.fillStyle = "green";
+                context.fillRect(regionUnit[0] * k, regionUnit[1] * i, regionUnit[0], regionUnit[1]);
             }
         }
     }

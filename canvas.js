@@ -14,7 +14,7 @@ function init() {
     //run initial world draw
     initWorld();
 
-    drawSectionsWithinBounds(0,0,worldRegions,worldRegions);
+    drawSectionsWithinBounds(0, 0, worldRegions, worldRegions);
 }
 
 function clearCanvas() {
